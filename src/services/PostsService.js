@@ -7,7 +7,7 @@ import { CurrentPage } from "../models/CurrentPage";
 class PostsService {
 
   async getPosts() {
-    const res = await api.get();
+    const res = await api.get('api/posts');
     AppState.posts = res.data.posts.map(post => new Post(post));
     AppState.currentPage = new CurrentPage(res.data);
   }
@@ -24,6 +24,11 @@ class PostsService {
     logger.log('[POSTS SERVICE] getPostsByPage(): ', AppState.currentPage, 'posts', AppState.posts);
   }
 
+  async getPostsByQuery(query) {
+    const res = await api.get(`api/posts?query=${query}`);
+    AppState.posts = res.data.posts.map(post => new Post(post));
+    AppState.currentPage = new CurrentPage(res.data);
+  }
 
   // 🔽 AUTHENTICATION REQUIRED BELOW 🔽
 
@@ -46,11 +51,11 @@ class PostsService {
     logger.log('[POSTS SERVICE] updatePost(): ', AppState.posts[toBeUpdatedIndex])
   }
 
-  async removePost(postId) {
-    const toBeDeletedIndex = AppState.posts.findIndex(post => post.id == postId)
+  async removePost(postObj) {
+    const toBeDeletedIndex = AppState.posts.findIndex(post => post.id == postObj.id)
     AppState.posts.splice(toBeDeletedIndex, 1)
-    const res = await api.delete(`api/posts/${postId}`)
-    return res.data
+    const res = await api.delete(`api/posts/${postObj.id}`)
+    logger.log('[POSTS SERVICE] removePost(): ', res.data, '::', postObj)
   }
 
 }
