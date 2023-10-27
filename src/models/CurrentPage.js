@@ -10,7 +10,7 @@ export class CurrentPage {
   constructor(data) {
     this.page = data.page || 1
     this.totalPages = data.totalPages || 1
-    this.newer = data.newer || null
-    this.older = data.older || null
+    this.prevPage = data.newer || null
+    this.nextPage = data.older || null
   }
 }
