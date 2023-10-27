@@ -82,11 +82,11 @@ export class Post {
   constructor(data) {
     this.id = data.id || data._id
     this.body = data.body
-    this.imgUrl = data.imgUrl
+    this.imgUrl = data.imgUrl || "https://thenounproject.com/api/private/icons/5034901/edit/?exportSize=752&&imageFormat=png"
     this.likeIds = data.likeIds
     this.likes = data.likes
-    this.createdAt = new Date(data.createdAt)
-    this.updatedAt = new Date(data.updatedAt)
+    this.createdAt = new Date(data.createdAt) || new Date()
+    this.updatedAt = new Date(data.updatedAt) || new Date()
     this.creatorId = data.creatorId
     this.creator = data.creator
   }

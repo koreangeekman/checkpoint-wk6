@@ -6,5 +6,22 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} */
   account: {},
 
+  /** @type {import('./models/Post.js').Post[]} */
+  posts: [],
 
+  currentPageInfo: {
+    page: 1,
+    totalPages: 1,
+    next: '',
+    prev: ''
+  },
+
+  /** @type {import('./models/Post.js').Post} */
+  activePost: null,
+
+  /** @type {import('./models/Profile.js').Profile} */
+  activeProfile: null,
+
+  /** @type {import('./models/Ad.js').Ad[]} */
+  ads: []
 })
