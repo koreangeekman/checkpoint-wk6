@@ -12,23 +12,23 @@
         <section class="user pe-3">
           <span class="m-2">
             <label for="name">Name</label>
-            <input v-bind="editable.name" class="ms-2 form-control" type="text" id="name">
+            <input v-model="editable.name" class="ms-2 form-control" type="text" id="name">
           </span>
           <br>
           <span class="m-2">
             <label for="picture">User Picture URL</label>
-            <input v-bind="editable.picture" class="ms-2 form-control" type="url" id="picture">
+            <input v-model="editable.picture" class="ms-2 form-control" type="url" id="picture">
           </span>
           <br>
           <div class="d-flex justify-content-between">
             <span class="m-2">
               <label for="class">Cohort</label>
-              <input v-bind="editable.class" class="ms- form-control" type="text" id="class">
+              <input v-model="editable.class" class="ms- form-control" type="text" id="class">
             </span>
             <span class="my-2 me-2 ps-3 pt-1 text-end">
               <label for="graduated">Graduated?</label>
               <br>
-              <input v-bind="editable.graduated" type="checkbox" id="graduated" name="graduated">
+              <input v-model="editable.graduated" type="checkbox" id="graduated" name="graduated">
             </span>
           </div>
         </section>
@@ -36,17 +36,17 @@
         <section class="socials">
           <span class="m-2">
             <label for="github">Github</label>
-            <input v-bind="editable.github" class="ms-2 form-control" type="url" id="github">
+            <input v-model="editable.github" class="ms-2 form-control" type="url" id="github">
           </span>
           <br>
           <span class="m-2">
             <label for="linkedin">LinkedIn</label>
-            <input v-bind="editable.linkedin" class="ms-2 form-control" type="url" id="linkedin">
+            <input v-model="editable.linkedin" class="ms-2 form-control" type="url" id="linkedin">
           </span>
           <br>
           <span class="m-2">
             <label for="resume">Resume</label>
-            <input v-bind="editable.resume" class="ms-2 form-control" type="text" id="resume">
+            <input v-model="editable.resume" class="ms-2 form-control" type="text" id="resume">
           </span>
         </section>
       </div>
@@ -73,7 +73,7 @@ import Pop from "../utils/Pop";
 import { accountService } from "../services/AccountService";
 export default {
   setup() {
-    const editable = ref({})
+    const editable = ref({});
 
     return {
       editable,

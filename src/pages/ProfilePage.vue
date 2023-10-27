@@ -4,14 +4,14 @@
       <div class="col-12 col-lg-10 listPosts">
         <section class="row">
           <div class="col-12 pb-4 px-5">
-            <AddPost />
+            <UserProfile />
           </div>
           <hr>
         </section>
         <section class="row justify-content-end">
 
-          <div v-if="currentPage.totalPages > 1"
-            class="col-12 col-lg-9 d-flex justify-content-between align-items-center px-5">
+          <div class="col-12 col-lg-9 d-flex justify-content-between align-items-center px-5"
+            v-if="currentPage.totalPages > 1">
             <Pagination />
           </div>
 
@@ -33,46 +33,57 @@
   </div>
 </template>
 
+
 <script>
-import { AppState } from '../AppState';
-import { computed, onMounted } from 'vue';
-import { postsService } from "../services/PostsService";
+import { computed, onMounted } from "vue";
+import Pagination from "../components/Pagination.vue";
+import PostCard from "../components/PostCard.vue";
+import { AppState } from "../AppState";
+import { useRoute } from "vue-router";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
-import AddPost from "../components/AddPost.vue";
-import PostCard from "../components/PostCard.vue";
-import Pagination from "../components/Pagination.vue";
-import { adsService } from "../services/AdsService";
+import { profilesService } from "../services/ProfilesService";
+
 
 export default {
   setup() {
-    async function _getPostsAndAds() {
+    const route = useRoute();
+
+    async function _getProfileById() {
       try {
-        await postsService.getPosts();
-        await adsService.getAds();
-        // await adsService.getAdsByCount(4);
-      }
-      catch (error) {
+        const profileId = route.params.profileId;
+        await profilesService.getProfileById(profileId);
+      } catch (error) {
         logger.error(error);
         Pop.error(error);
       }
     }
+
+    async function _getPostsByProfileId() {
+      try {
+        const profileId = route.params.profileId;
+        await profilesService.getPostsByProfileId(profileId);
+      } catch (error) {
+        logger.error(error);
+        Pop.error(error);
+      }
+    }
+
     onMounted(() => {
-      _getPostsAndAds();
-    });
+      _getProfileById();
+      _getPostsByProfileId();
+    })
+
     return {
+      activeProfile: computed(() => AppState.activeProfile),
       posts: computed(() => AppState.posts),
       currentPage: computed(() => AppState.currentPage),
       ads: computed(() => AppState.ads)
     };
   },
-  components: { AddPost, Pagination, PostCard }
-}
+  components: { Pagination, PostCard }
+};
 </script>
 
-<style scoped lang="scss">
-.listPosts {
-  height: 93vh;
-  overflow-y: scroll;
-}
-</style>
+
+<style lang="scss" scoped></style>
