@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="searchPosts()" class="d-flex">
-    <input v-bind="query" class="form-control mx-3" type="text" id="query" maxlength="30" required>
+    <input v-model="search" class="form-control mx-3" type="text" maxlength="30">
     <button class="btn btn-success d-flex" type="submit">Search<i class=" mdi mdi-magnify"></i></button>
   </form>
 </template>
@@ -12,10 +12,12 @@ import { postsService } from "../services/PostsService.js";
 
 export default {
   setup() {
-    const query = ref('')
+    const search = ref('');
     return {
+      search,
       async searchPosts() {
-        await postsService.getPostsByQuery(query)
+        await postsService.getPostsByQuery(search.value)
+        // search.value = '';
       },
     }
   }
