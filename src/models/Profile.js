@@ -24,7 +24,7 @@ export class Profile {
     this.id = data.id || data._id
     this.email = data.email
     this.name = data.name
-    this.picture = data.picture
+    this.picture = data.picture || "https://thenounproject.com/api/private/icons/5034901/edit/?exportSize=752&&imageFormat=png"
     this.bio = data.bio
     this.coverImg = data.coverImg
     this.github = data.github
