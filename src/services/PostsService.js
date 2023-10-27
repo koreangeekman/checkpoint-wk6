@@ -2,12 +2,14 @@ import { api } from "./AxiosService";
 import { AppState } from "../AppState";
 import { Post } from "../models/Post";
 import { logger } from "../utils/Logger";
+import { CurrentPage } from "../models/CurrentPage";
 
 class PostsService {
 
   async getPosts() {
     const res = await api.get();
     AppState.posts = res.data.posts.map(post => new Post(post));
+    AppState.currentPage = new CurrentPage(res.data);
   }
 
   async getPostById(postId) {
@@ -18,19 +20,22 @@ class PostsService {
   async getPostsByPage(pageUrl) {
     const res = await api.get(pageUrl);
     AppState.posts = res.data.posts.map(post => new Post(post));
+    AppState.currentPage = new CurrentPage(res.data);
+    logger.log('[POSTS SERVICE] getPostsByPage(): ', AppState.currentPage, 'posts', AppState.posts);
   }
+
 
   // 🔽 AUTHENTICATION REQUIRED BELOW 🔽
 
   async createPost(postBody) {
-    const res = await api.post('api/posts', postBody)
+    const res = await api.post('api/posts', postBody);
     AppState.posts.unshift(new Post(res.data));
-    logger.log('[POSTS SERVICE] createPost(): ', AppState.posts[0])
+    logger.log('[POSTS SERVICE] createPost(): ', AppState.posts[0]);
   }
 
   async toggleLike(postId) {
-    const res = await api.post(`api/posts/${postId}/like`)
-    logger.log('[POSTS SERVICE] toggleLike(): ', res.data)
+    const res = await api.post(`api/posts/${postId}/like`);
+    logger.log('[POSTS SERVICE] toggleLike(): ', res.data);
     return res.data
   }
 
