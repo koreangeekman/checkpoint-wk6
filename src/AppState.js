@@ -9,15 +9,14 @@ export const AppState = reactive({
   /** @type {import('./models/Post.js').Post[]} */
   posts: [],
 
-  currentPage: {
-    page: 1,
-    totalPages: 1,
-    next: '',
-    prev: ''
-  },
+  /** @type {import('./models/CurrentPage.js').CurrentPage} */
+  currentPage: {},
 
   /** @type {import('./models/Post.js').Post} */
   activePost: null,
+
+  /** @type {import('./models/Profile.js').Profile[]} */
+  profiles: [],
 
   /** @type {import('./models/Profile.js').Profile} */
   activeProfile: null,

@@ -7,6 +7,7 @@ class AdsService {
     const res = await api.get('api/ads');
     AppState.ads = res.data.map(ad => new Ad(ad));
   }
+
   async getAdsByCount(count) {
     const res = await api.get(`api/ads?count=${count}`);
     AppState.ads = res.data.map(ad => new Ad(ad));
