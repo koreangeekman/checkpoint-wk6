@@ -1,33 +1,35 @@
 <template>
   <nav class="navbar navbar-expand-lg px-3">
+    <div class="collapse navbar-collapse" id="navbarText">
+      <!-- LOGIN COMPONENT HERE -->
+      <Login />
+      <ul class="navbar-nav me-auto">
+        <Search />
+        <!-- <li>
+          <router-link :to="{ name: 'About' }" class="btn lighten-30 selectable text-uppercase">
+            About
+          </router-link>
+        </li> -->
+      </ul>
+    </div>
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <i class="fs-1 mdi mdi-home"></i>
+      <i class="fs-1 me-5 mdi mdi-home"></i>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
-    </div>
   </nav>
 </template>
 
 <script>
 import Login from './Login.vue';
+import Search from "./Search.vue";
 export default {
   setup() {
     return {}
   },
-  components: { Login }
+  components: { Login, Search }
 }
 </script>
 

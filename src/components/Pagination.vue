@@ -1,8 +1,8 @@
 <template>
-  <i class="fs-1 text-primary mdi mdi-skip-backward" type="button" @click="changePage(currentPage.prevPage)"
+  <i class="btn btn-primary fs-1 px-2 py-0 mdi mdi-skip-backward" type="button" @click="changePage(currentPage.prevPage)"
     :disabled="!currentPage.prevPage"></i>
   <p class="mb-0 fs-4">{{ currentPage.page }} of {{ currentPage.totalPages }}</p>
-  <i class="fs-1 text-primary mdi mdi-skip-forward" type="button" @click="changePage(currentPage.nextPage)"
+  <i class="btn btn-primary fs-1 px-2 py-0 mdi mdi-skip-forward" type="button" @click="changePage(currentPage.nextPage)"
     :disabled="!currentPage.nextPage"></i>
 </template>
 
@@ -35,4 +35,8 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+i.btn {
+  line-height: 3rem;
+}
+</style>

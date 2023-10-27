@@ -7,28 +7,28 @@
 
   <div class="d-flex justify-content-center">
 
-    <form class="card p-3">
+    <form class="card p-3" @submit.prevent="updateProfile()">
       <div class="d-flex p-3 justify-content-between">
         <section class="user pe-3">
           <span class="m-2">
             <label for="name">Name</label>
-            <input class="ms-2 form-control" type="text" id="name">
+            <input v-bind="editable.name" class="ms-2 form-control" type="text" id="name">
           </span>
           <br>
           <span class="m-2">
             <label for="picture">User Picture URL</label>
-            <input class="ms-2 form-control" type="url" id="picture">
+            <input v-bind="editable.picture" class="ms-2 form-control" type="url" id="picture">
           </span>
           <br>
           <div class="d-flex justify-content-between">
             <span class="m-2">
               <label for="class">Cohort</label>
-              <input class="ms-2 form-control" type="text" id="class">
+              <input v-bind="editable.class" class="ms- form-control" type="text" id="class">
             </span>
-            <span class="my-2 ms-2 ps-3 text-end">
+            <span class="my-2 me-2 ps-3 pt-1 text-end">
               <label for="graduated">Graduated?</label>
               <br>
-              <input type="checkbox" id="graduated" name="graduated">
+              <input v-bind="editable.graduated" type="checkbox" id="graduated" name="graduated">
             </span>
           </div>
         </section>
@@ -36,17 +36,17 @@
         <section class="socials">
           <span class="m-2">
             <label for="github">Github</label>
-            <input class="ms-2 form-control" type="url" id="github">
+            <input v-bind="editable.github" class="ms-2 form-control" type="url" id="github">
           </span>
           <br>
           <span class="m-2">
             <label for="linkedin">LinkedIn</label>
-            <input class="ms-2 form-control" type="url" id="linkedin">
+            <input v-bind="editable.linkedin" class="ms-2 form-control" type="url" id="linkedin">
           </span>
           <br>
           <span class="m-2">
             <label for="resume">Resume</label>
-            <input class="ms-2 form-control" type="text" id="resume">
+            <input v-bind="editable.resume" class="ms-2 form-control" type="text" id="resume">
           </span>
         </section>
       </div>
@@ -57,19 +57,35 @@
           <textarea class="ms-2 form-control" name="bio" id="bio" rows="3"></textarea>
         </div>
       </div>
-
+      <div class="d-flex justify-content-end pe-3">
+        <button class="btn btn-success">Submit</button>
+      </div>
     </form>
 
   </div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { AppState } from '../AppState';
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
+import { accountService } from "../services/AccountService";
 export default {
   setup() {
+    const editable = ref({})
+
     return {
-      account: computed(() => AppState.account)
+      editable,
+      account: computed(() => AppState.account),
+      async updateProfile() {
+        try {
+          accountService.updateAccount(editable.value)
+        } catch (error) {
+          logger.error(error);
+          Pop.error(error);
+        }
+      }
     }
   }
 }
@@ -82,5 +98,9 @@ img {
 
 form {
   width: 42rem;
+}
+
+form button {
+  width: fit-content;
 }
 </style>
