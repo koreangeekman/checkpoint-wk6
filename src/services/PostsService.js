@@ -30,6 +30,13 @@ class PostsService {
     AppState.currentPage = new CurrentPage(res.data);
   }
 
+  clearData() {
+    AppState.posts = [];
+    AppState.profiles = [];
+    AppState.activePost = null;
+    AppState.activeProfile = null;
+  }
+
   // 🔽 AUTHENTICATION REQUIRED BELOW 🔽
 
   async createPost(postBody) {

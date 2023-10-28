@@ -2,25 +2,29 @@
   <div class="d-block card shadow p-3 m-3">
 
     <span class="header d-flex justify-content-between">
-      <span class="author align-items-center d-flex">
-        <img :src="post.creator.picture" :alt="post.creator.name" class="rounded-circle">
-        <div class="d-block p-3">
-          <p class="mb-0 fw-bold fs-5">{{ post.creator.name }}</p>
-          <span class="d-flex align-items-center">
-            <p class="mb-0 text-secondary">{{ post.createdAt.toLocaleDateString() }}</p>
-            <i v-if="post.creator.graduated" class="m-0 mx-2 fs-4 text-primary mdi mdi-account-school"></i>
-          </span>
-        </div>
-      </span>
+
+      <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
+        <span class="align-items-center d-flex">
+          <img :src="post.creator.picture" :alt="post.creator.name" class="rounded-circle authorImg">
+          <div class="d-block p-3">
+            <p class="mb-0 fw-bold fs-5">{{ post.creator.name }}</p>
+            <span class="d-flex align-items-center">
+              <p class="mb-0 text-secondary">{{ post.createdAt.toLocaleDateString() }}</p>
+              <i v-if="post.creator.graduated" class="m-0 mx-2 fs-4 text-primary mdi mdi-account-school"></i>
+            </span>
+          </div>
+        </span>
+      </router-link>
 
       <i v-if="post.creatorId == account.id" type="button" @click="editPost()"
         class="fs-2 editButton mdi mdi-dots-horizontal-circle"></i>
+
     </span>
 
     <hr>
 
     <p class="p-2">{{ post.body }}</p>
-    <img v-if="post.imgUrl" :src="post.imgUrl" alt="image for post">
+    <img v-if="post.imgUrl" :src="post.imgUrl" alt="image for post" class="postImg">
 
     <hr>
 
@@ -68,16 +72,22 @@ export default {
 
 
 <style lang="scss" scoped>
+.card {}
+
 .mdi {
   line-height: 1.5rem;
 }
 
-.card img {
+.postImg {
   max-height: 40vh;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-.author img {
-  height: 4rem;
+.authorImg {
+  height: 6rem;
+  width: 6rem;
   object-fit: cover;
   object-position: center;
 }

@@ -2,27 +2,41 @@
   <div class="container-fluid">
     <section class="row">
       <div class="col-12 col-lg-10 listPosts">
+
         <section class="row">
           <div class="col-12 pb-4 px-5">
-            <UserProfile />
+            <UserProfile :profile="activeProfile" />
           </div>
           <hr>
         </section>
+
         <section class="row justify-content-end">
 
           <div class="col-12 col-lg-9 d-flex justify-content-between align-items-center px-5"
             v-if="currentPage.totalPages > 1">
-            <Pagination />
+            <Pagination :currentPage="currentPage" />
           </div>
 
-          <div v-for="post in posts" :key="post.id" class="col-12 col-lg-9">
+          <div v-if="posts" v-for="post in posts" :key="post.id" class="col-12 col-lg-9">
             <PostCard :post="post" />
           </div>
 
-          <div v-if="posts = []" class="text-center p-5">
+          <div v-if="!posts" class="d-flex justify-content-center p-5">
+            <p class="mb-0 fs-1">
+              Loading... <i class="mdi mdi-swap-horizontal-circle-outline mdi-spin"></i>
+            </p>
+          </div>
+
+          <div v-if="posts == []" class="text-center p-5">
             <p class="fs-1 fw-bold mb-0">No more posts... <i class="mdi mdi-help-network-outline"></i></p>
           </div>
+
+          <div class="col-12 col-lg-9 d-flex justify-content-between align-items-center px-5"
+            v-if="currentPage.totalPages > 1">
+            <Pagination :currentPage="currentPage" />
+          </div>
         </section>
+
       </div>
 
       <div class="col-12 col-lg-2">
@@ -38,11 +52,13 @@
 import { computed, onMounted } from "vue";
 import Pagination from "../components/Pagination.vue";
 import PostCard from "../components/PostCard.vue";
+import UserProfile from "../components/UserProfile.vue";
+import Pop from "../utils/Pop";
+import { logger } from "../utils/Logger";
 import { AppState } from "../AppState";
 import { useRoute } from "vue-router";
-import { logger } from "../utils/Logger";
-import Pop from "../utils/Pop";
 import { profilesService } from "../services/ProfilesService";
+import { postsService } from "../services/PostsService.js";
 
 
 export default {
@@ -51,8 +67,7 @@ export default {
 
     async function _getProfileById() {
       try {
-        const profileId = route.params.profileId;
-        await profilesService.getProfileById(profileId);
+        await profilesService.getProfileById(route.params.profileId);
       } catch (error) {
         logger.error(error);
         Pop.error(error);
@@ -61,8 +76,7 @@ export default {
 
     async function _getPostsByProfileId() {
       try {
-        const profileId = route.params.profileId;
-        await profilesService.getPostsByProfileId(profileId);
+        await profilesService.getPostsByProfileId(route.params.profileId);
       } catch (error) {
         logger.error(error);
         Pop.error(error);
@@ -70,6 +84,7 @@ export default {
     }
 
     onMounted(() => {
+      postsService.clearData();
       _getProfileById();
       _getPostsByProfileId();
     })
@@ -81,7 +96,7 @@ export default {
       ads: computed(() => AppState.ads)
     };
   },
-  components: { Pagination, PostCard }
+  components: { UserProfile, Pagination, PostCard }
 };
 </script>
 
