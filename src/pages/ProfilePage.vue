@@ -97,7 +97,6 @@ export default {
     }
 
     onMounted(async () => {
-      logger.log('hello?')
       await postsService.clearData();
       await _getProfileById();
       _getPostsByProfileId();
