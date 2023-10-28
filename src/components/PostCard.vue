@@ -9,7 +9,9 @@
           <div class="d-block p-3">
             <p class="mb-0 fw-bold fs-5">{{ post.creator.name }}</p>
             <span class="d-flex align-items-center">
-              <p class="mb-0 text-secondary">{{ post.createdAt.toLocaleDateString() }}</p>
+              <p class="mb-0 text-secondary">
+                {{ post.createdAt.toLocaleDateString() + ' @ ' + post.createdAt.toLocaleTimeString() }}
+              </p>
               <i v-if="post.creator.graduated" class="m-0 mx-2 fs-4 text-primary mdi mdi-account-school"></i>
             </span>
           </div>
@@ -49,11 +51,10 @@ import Pop from "../utils/Pop";
 
 
 export default {
-  props: {
-    post: { type: Post }
-  },
+  props: { post: { type: Post } },
 
   setup() {
+
     return {
       account: computed(() => AppState.account),
 
@@ -66,14 +67,13 @@ export default {
         }
       }
     }
+
   }
 };
 </script>
 
 
 <style lang="scss" scoped>
-.card {}
-
 .mdi {
   line-height: 1.5rem;
 }

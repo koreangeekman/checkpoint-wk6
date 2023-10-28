@@ -20,7 +20,10 @@ class ProfilesService {
     const res = await api.get(`api/profiles?query=${query}`);
     AppState.profiles = res.data.map(profile => new Profile(profile));
   }
-
+  clearData() {
+    AppState.profiles = [];
+    AppState.activeProfile = null;
+  }
 }
 
 export const profilesService = new ProfilesService();

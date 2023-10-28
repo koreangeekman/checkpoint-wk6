@@ -1,31 +1,45 @@
 <template>
-  <div class="d-flex bgImg align-items-center">
-    <div class="relative">
-      <img :src="profile.picture" :alt="profile.name" class="profileImg rounded-circle">
-      <i v-if="!profile.graduated" class="m-0 mx-2 abs text-primary rounded-circle mdi mdi-account-school"></i>
-    </div>
-    <span class="mx-3">
-      <p class="fw-bold fs-1">{{ profile.name }}</p>
-      <p class="fs-4">{{ profile.email }}</p>
-      <span class="d-flex">
-        <p class="fs-4">{{ profile.class }}</p>
+  <div class="d-flex bgImg align-items-center justify-content-between shadow m-3 p-3">
+    <section class="d-flex">
+      <div class="relative">
+        <img :src="profile.picture" :alt="profile.name" class="profilePicture rounded-circle">
+        <i v-if="profile.graduated" class="absolute grad text-primary rounded-circle mdi mdi-account-school"></i>
+      </div>
+      <span class="px-4">
+        <p class="fw-bold fs-3">{{ profile.name }}</p>
+        <p class="">{{ profile.email }}</p>
+        <p class="">Class: <small>{{ profile.class ? '' : '[none set]' }}</small></p>
+        <p class="" title="resume link" :href="profile.resume">Resume: <small>{{ profile.resume ? '' : '[none set]'
+        }}</small></p>
       </span>
+    </section>
+    <span class="d-block px-4">
+      <p class="fs-5 fw-bold mb-2">Socials</p>
+      <p class="" title="github link" :href="profile.github"><i class="fs-4 mdi mdi-github"></i>
+        <small>{{ profile.github ? '' : '[none set]' }}</small>
+      </p>
+      <p class="" title="linkedin" :href="profile.linkedin"><i class="fs-4 mdi mdi-linkedin"></i>
+        <small>{{ profile.linkedin ? '' : '[none set]' }}</small>
+      </p>
+      <p class="fs-5 fw-bold my-2">Account</p>
+      <p class="" title="Account created at"><small>{{ profile.createdAt.toLocaleDateString() }}</small></p>
     </span>
+    <img :src="profile.coverImg" :alt="profile.name" class="coverImg rounded">
   </div>
 </template>
 
 
 <script>
-import { computed } from "vue";
-import { Profile } from "../models/Profile.js";
+import { computed, onMounted } from "vue";
 import { AppState } from "../AppState.js";
+import { Profile } from "../models/Profile.js";
+import { useRoute } from "vue-router";
 
 export default {
-  props: { profile: { type: Profile, required: true } },
+  props: { profile: { type: Profile } },
 
   setup() {
     return {
-      // profile: computed(() => AppState.activeProfile)
     }
   }
 };
@@ -34,25 +48,23 @@ export default {
 
 <style lang="scss" scoped>
 .bgImg {
-  background-image: url(props.profile.coverImg);
+  // background-image: url(props.profile.coverImg);
   background-position: center;
   background-size: cover;
 }
 
-.profileImg {
-  height: 10rem;
-  width: 10rem;
+.coverImg {
+  max-height: 12rem;
+  max-width: 12rem;
+  object-fit: cover;
 }
 
-i {
-  background-color: #fff;
-  font-size: 2rem;
-  height: 3.2rem;
-  width: 3.2rem;
-  text-align: center;
+.profilePicture {
+  height: 8rem;
+  width: 8rem;
 }
 
-.abs {
+.absolute {
   position: absolute;
   bottom: -12px;
   right: -12px;
@@ -60,6 +72,14 @@ i {
 
 .relative {
   position: relative;
+}
+
+.grad {
+  background-color: #fff;
+  font-size: 2rem;
+  height: 3.2rem;
+  width: 3.2rem;
+  text-align: center;
 }
 
 p {

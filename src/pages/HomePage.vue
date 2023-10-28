@@ -27,7 +27,7 @@
 
           <div v-if="currentPage.totalPages > 1"
             class="col-12 col-lg-9 d-flex justify-content-between align-items-center px-5">
-            <Pagination />
+            <Pagination :currentPage="currentPage" />
           </div>
 
         </section>

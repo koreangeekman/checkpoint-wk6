@@ -32,9 +32,7 @@ class PostsService {
 
   clearData() {
     AppState.posts = [];
-    AppState.profiles = [];
     AppState.activePost = null;
-    AppState.activeProfile = null;
   }
 
   // 🔽 AUTHENTICATION REQUIRED BELOW 🔽
