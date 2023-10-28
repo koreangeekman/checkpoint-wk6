@@ -3,7 +3,7 @@
     <section class="row">
       <div class="col-12 col-lg-10 listPosts">
 
-        <section class="row">
+        <section v-if="account.id" class="row">
           <div class="col-12 pb-4 px-5">
             <AddPost />
           </div>
@@ -73,7 +73,8 @@ export default {
     return {
       posts: computed(() => AppState.posts),
       currentPage: computed(() => AppState.currentPage),
-      ads: computed(() => AppState.ads)
+      ads: computed(() => AppState.ads),
+      account: computed(() => AppState.account),
     };
   },
   components: { AddPost, Pagination, PostCard }

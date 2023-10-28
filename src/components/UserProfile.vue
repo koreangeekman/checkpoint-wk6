@@ -1,10 +1,12 @@
 <template>
   <div class="d-flex bgImg align-items-center justify-content-between shadow m-3 p-3">
     <section class="d-flex">
-      <div class="relative">
-        <img :src="profile.picture" :alt="profile.name" class="profilePicture rounded-circle">
-        <i v-if="profile.graduated" class="absolute grad text-primary rounded-circle mdi mdi-account-school"></i>
-      </div>
+      <router-link :to="{ name: 'Profile', params: { profileId: profile.id } }">
+        <div class="relative">
+          <img :src="profile.picture" :alt="profile.name" class="profilePicture rounded-circle">
+          <i v-if="profile.graduated" class="absolute grad text-primary rounded-circle mdi mdi-account-school"></i>
+        </div>
+      </router-link>
       <span class="px-4">
         <p class="fw-bold fs-3">{{ profile.name }}</p>
         <p class="">{{ profile.email }}</p>

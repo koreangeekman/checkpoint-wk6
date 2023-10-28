@@ -1,33 +1,37 @@
 <template>
   <nav class="navbar navbar-expand-lg px-3">
-    <div class="collapse navbar-collapse" id="navbarText">
-      <!-- LOGIN COMPONENT HERE -->
+    <div class="d-flex w-100 justify-content-between align-items-center">
+
+      <div v-if="route.name != 'Search'">
+        <router-link :to="{ name: 'Search' }">
+          <!-- <Search /> -->
+          <button class="btn btn-success d-flex" type="button">Search<i class="ps-1 mdi mdi-magnify"></i></button>
+        </router-link>
+      </div>
+      <div v-else>&nbsp;</div>
+
       <Login />
-      <ul class="navbar-nav me-auto">
-        <Search />
-        <!-- <li>
-          <router-link :to="{ name: 'About' }" class="btn lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li> -->
-      </ul>
+
+      <router-link :to="{ name: 'Home' }">
+        <i class="fs-1 me-5 mdi mdi-home"></i>
+      </router-link>
     </div>
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <i class="fs-1 me-5 mdi mdi-home"></i>
-    </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
   </nav>
 </template>
 
 <script>
+import { useRoute } from "vue-router";
 import Login from './Login.vue';
 import Search from "./Search.vue";
+
 export default {
+
   setup() {
-    return {}
+    const route = useRoute();
+
+    return {
+      route,
+    }
   },
   components: { Login, Search }
 }

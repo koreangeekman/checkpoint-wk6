@@ -1,7 +1,7 @@
 <template>
-  <form @submit.prevent="_searchProfilesAndPosts()" class="d-flex">
+  <form @submit.prevent="searchProfilesAndPosts()" class="d-flex">
     <input v-model="search" class="form-control mx-3" type="text" maxlength="30">
-    <button class="btn btn-success d-flex" type="submit">Search<i class=" mdi mdi-magnify"></i></button>
+    <button class="btn btn-success d-flex" type="submit">Search<i class="ps-1 mdi mdi-magnify"></i></button>
   </form>
 </template>
 
@@ -16,7 +16,6 @@ import { profilesService } from "../services/ProfilesService.js";
 
 export default {
   setup() {
-    const route = useRoute();
     const router = useRouter();
     const search = ref('');
 
@@ -40,20 +39,18 @@ export default {
       }
     };
 
-    async function _searchProfilesAndPosts() {
-      let query = route.query.query
-      if (search.value) {
-        query = search.value;
-      }
-      _getProfilesByQuery(query);
-      _getPostsByQuery(query);
-    }
-    onMounted(() => {
-      _searchProfilesAndPosts();
-    });
-
     return {
       search,
+
+      async searchProfilesAndPosts() {
+        profilesService.clearData();
+        postsService.clearData();
+
+        // router.query.query = search.value;
+        router.push({ to: { name: 'Search', query: search.value } })
+        await _getProfilesByQuery(search.value);
+        await _getPostsByQuery(search.value);
+      }
     }
   }
 };
