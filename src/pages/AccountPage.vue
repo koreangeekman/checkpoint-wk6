@@ -1,50 +1,55 @@
 <template>
   <div class="about text-center">
     <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
+    <img class="rounded-circle" :src="account.picture" alt="" />
     <p>{{ account.email }}</p>
   </div>
 
   <div class="d-flex justify-content-center">
 
     <form class="card p-3" @submit.prevent="updateProfile()">
-      <div class="d-flex p-3 justify-content-between">
-        <section class="user pe-3">
-          <span class="m-2">
+      <p class="mb-0 fs-3 p-2 text-center">Edit profile?</p>
+
+      <hr>
+
+      <div class="d-flex  justify-content-between">
+        <section class="user px-3 pb-3">
+          <span class="">
             <label for="name">Name</label>
             <input v-model="editable.name" class="ms-2 form-control" type="text" id="name">
           </span>
           <br>
-          <span class="m-2">
+          <span class="">
             <label for="picture">User Picture URL</label>
             <input v-model="editable.picture" class="ms-2 form-control" type="url" id="picture">
           </span>
           <br>
           <div class="d-flex justify-content-between">
-            <span class="m-2">
+            <span class="">
               <label for="class">Cohort</label>
-              <input v-model="editable.class" class="ms- form-control" type="text" id="class">
+              <input v-model="editable.class" class="ms-2 form-control" type="text" id="class">
             </span>
-            <span class="my-2 me-2 ps-3 pt-1 text-end">
+            <span class="me-1 ps-4 text-end">
               <label for="graduated">Graduated?</label>
               <br>
-              <input v-model="editable.graduated" type="checkbox" id="graduated" name="graduated">
+              <input v-model="editable.graduated" class="checkbox mt-2 me-4" type="checkbox" id="graduated"
+                name="graduated">
             </span>
           </div>
         </section>
 
-        <section class="socials">
-          <span class="m-2">
+        <section class="socials pe-4">
+          <span class="">
             <label for="github">Github</label>
             <input v-model="editable.github" class="ms-2 form-control" type="url" id="github">
           </span>
           <br>
-          <span class="m-2">
+          <span class="">
             <label for="linkedin">LinkedIn</label>
             <input v-model="editable.linkedin" class="ms-2 form-control" type="url" id="linkedin">
           </span>
           <br>
-          <span class="m-2">
+          <span class="">
             <label for="resume">Resume</label>
             <input v-model="editable.resume" class="ms-2 form-control" type="text" id="resume">
           </span>
@@ -52,13 +57,16 @@
       </div>
 
       <div class="">
-        <div class="mx-2 mb-3 px-3">
+        <div class="mx-3 mb-3 pe-2">
           <label for="bio">Bio</label>
           <textarea class="ms-2 form-control" name="bio" id="bio" rows="3"></textarea>
         </div>
       </div>
-      <div class="d-flex justify-content-end pe-3">
-        <button class="btn btn-success">Submit</button>
+
+      <hr>
+
+      <div class="d-flex justify-content-center pe-3">
+        <button class="btn btn-success">Submit Changes</button>
       </div>
     </form>
 
@@ -93,7 +101,7 @@ export default {
 
 <style scoped>
 img {
-  max-width: 100px;
+  max-width: 10rem;
 }
 
 form {
@@ -102,5 +110,10 @@ form {
 
 form button {
   width: fit-content;
+}
+
+.checkbox {
+  height: 1.2rem;
+  width: 1.2rem;
 }
 </style>

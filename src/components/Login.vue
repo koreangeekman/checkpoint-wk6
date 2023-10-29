@@ -1,16 +1,16 @@
 <template>
-  <span class="navbar-text">
-    <button class="btn btn-primary selectable text-uppercase my-2 my-lg-0" @click="login" v-if="!user.isAuthenticated">
+  <span class="navbar-text px-md-3">
+    <button class="btn btn-primary selectable text-uppercase" @click="login" v-if="!user.isAuthenticated">
       Login
     </button>
     <div v-else>
-      <div class="p-2 d-flex">
+      <div class="px-2 d-flex">
         <router-link :to="{ name: 'Account' }">
           <div class="btn btn-primary">
             Manage Account
           </div>
         </router-link>
-        <div class="btn me-3 text-danger selectable" @click="logout">
+        <div class="btn me-md-3 text-danger selectable" @click="logout">
           <i class="mdi mdi-logout"></i>
           logout
         </div>

@@ -1,22 +1,25 @@
 <template>
-  <nav class="navbar navbar-expand-lg px-3">
+  <nav class="navbar px-3">
     <div class="d-flex w-100 justify-content-between align-items-center">
-
-      <div v-if="route.name != 'Search'">
-        <router-link :to="{ name: 'Search' }">
-          <!-- <Search /> -->
-          <button class="btn btn-success d-flex" type="button">Search<i class="ps-1 mdi mdi-magnify"></i></button>
+      <span class="d-flex align-items-center">
+        <router-link :to="{ name: 'Home' }">
+          <i class="fs-1 mx-3 mdi mdi-home"></i>
         </router-link>
-      </div>
-      <div v-else>&nbsp;</div>
+
+        <div v-if="route.name != 'Search'">
+          <router-link :to="{ name: 'Search' }">
+            <!-- <Search /> -->
+            <button class="ms-3 btn btn-success d-flex" type="button">Search<i class="ps-1 mdi mdi-magnify"></i></button>
+          </router-link>
+        </div>
+        <div v-else>&nbsp;</div>
+      </span>
 
       <Login />
 
-      <router-link :to="{ name: 'Home' }">
-        <i class="fs-1 me-5 mdi mdi-home"></i>
-      </router-link>
     </div>
   </nav>
+  <hr>
 </template>
 
 <script>
