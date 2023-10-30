@@ -14,12 +14,13 @@
       <form @submit.prevent="createPost()" class="">
         <p class="fs-3">Add a new post?</p>
         <div class="mb-3">
-          <textarea v-model="postBody.body" class="form-control" name="body" id="body" rows="3"></textarea>
+          <textarea v-model="postBody.body" class="form-control" name="body" id="body" rows="3"
+            maxlength="5000"></textarea>
         </div>
         <span class="d-flex justify-content-between align-items-center">
           <div class="mb-3">
             <label for="imgUrl" class="form-label"><small>[Optional]</small> Add an image:</label>
-            <input v-model="postBody.imgUrl" class="form-control" type="url" name="imgUrl" id="imgUrl">
+            <input v-model="postBody.imgUrl" class="form-control" type="url" name="imgUrl" id="imgUrl" maxlength="500">
           </div>
           <button class="btn btn-success" type="submit">Create Post</button>
         </span>
@@ -38,7 +39,8 @@ import { postsService } from "../services/PostsService";
 
 export default {
   setup() {
-    const postBody = ref({})
+    const postBody = ref({});
+
     return {
       postBody,
       account: computed(() => AppState.account),

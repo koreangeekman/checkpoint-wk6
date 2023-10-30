@@ -8,23 +8,30 @@
         </div>
       </router-link>
       <div class="ps-4">
-        <p class="fw-bold fs-3">{{ profile.name }}</p>
-        <p class="mb-1">{{ profile.email }}</p>
+        <p class="fw-bold fs-1">{{ profile.name }}</p>
+        <p class="mb-3">{{ profile.email }}</p>
 
-        <p class="">Class: <small>{{ profile.class ? '' : ' [none set]' }}</small></p>
-        <p class="mb-3" title="resume link" :href="profile.resume">Resume:
-          <small>{{ profile.resume ? '' : ' [none set]' }}</small>
-        </p>
+        <p class="mb-3">Class: <small>{{ profile.class ? profile.class : ' [none set]' }}</small></p>
+        <u v-if="profile.resume" :type="profile.resume ? 'button' : ''">
+          <p class="mb-3" :title="profile.resume ? 'resume link' : 'no resume linked yet'" :href="profile.resume">
+            Resume{{ profile.resume ? ' Link' : ':' }}
+            <small>{{ profile.resume ? '' : ' [none set]' }}</small>
+          </p>
+        </u>
 
         <p class="fs-5 fw-bold mb-2">Socials</p>
-        <p class="" title="github link" :href="profile.github" :type="profile.github ? 'button' : ''"><i
-            class="fs-4 mdi mdi-github"></i>
-          <small>{{ profile.github ? '' : ' [none set]' }}</small>
-        </p>
-        <p class="mb-3" title="linkedin" :href="profile.linkedin" :type="profile.github ? 'button' : ''"><i
-            class="fs-4 mdi mdi-linkedin"></i>
-          <small>{{ profile.linkedin ? '' : ' [none set]' }}</small>
-        </p>
+        <span class="d-flex">
+          <p class="d-flex align-items-center" title="github link" :href="profile.github"
+            :type="profile.github ? 'button' : ''">
+            <i class="fs-2 px-2 mdi mdi-github"></i>
+            <small v-if="!profile.github"> [none set]</small>
+          </p>
+          <p class="d-flex align-items-center" title="linkedin" :href="profile.linkedin"
+            :type="profile.github ? 'button' : ''">
+            <i class="fs-2 px-2 mdi mdi-linkedin"></i>
+            <small v-if="!profile.linkedin"> [none set]</small>
+          </p>
+        </span>
 
         <p class="fs-5 fw-bold my-2">Account created on</p>
         <p class="" title="Account created at"><small>{{ profile.createdAt.toLocaleDateString() }}</small></p>
