@@ -12,6 +12,10 @@
 
         <section class="row justify-content-end">
 
+          <div v-if="windowWidth < 768" class="col-12 col-lg-2">
+            <AdBanner :ad="0" />
+          </div>
+
           <div v-if="currentPage.totalPages > 1"
             class="col-12 col-lg-9 d-flex justify-content-between align-items-center px-5">
             <Pagination :currentPage="currentPage" />
@@ -34,7 +38,10 @@
 
       </div>
 
-      <div class="col-12 col-lg-2">
+      <div v-if="windowWidth < 768" class="col-12 col-lg-2">
+        <AdBanner :ad="1" />
+      </div>
+      <div v-else class="col-12 col-lg-2">
         <div v-for="ad in ads" :key="ad.title">
           <AdTall :ad="ad" />
         </div>
@@ -46,7 +53,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { postsService } from "../services/PostsService";
@@ -55,9 +62,12 @@ import AddPost from "../components/AddPost.vue";
 import PostCard from "../components/PostCard.vue";
 import Pagination from "../components/Pagination.vue";
 import AdTall from "../components/AdTall.vue";
+import AdBanner from "../components/AdBanner.vue";
 
 export default {
   setup() {
+    // const windowWidth = ref(window.innerWidth);
+
     async function _getPostsAndAds() {
       try {
         await postsService.getPosts();
@@ -69,20 +79,26 @@ export default {
         Pop.error(error);
       }
     }
+
     onMounted(() => {
       postsService.clearData();
       adsService.clearPending()
 
       _getPostsAndAds();
     });
+
     return {
+      // windowWidth,
+
       posts: computed(() => AppState.posts),
       currentPage: computed(() => AppState.currentPage),
       ads: computed(() => AppState.ads),
       account: computed(() => AppState.account),
+
+      windowWidth: computed(() => window.innerWidth),
     };
   },
-  components: { AddPost, Pagination, PostCard, AdTall }
+  components: { AddPost, Pagination, PostCard, AdTall, AdBanner }
 }
 </script>
 

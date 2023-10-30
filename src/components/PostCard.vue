@@ -1,7 +1,7 @@
 <template>
   <div class="d-block card shadow p-3 m-3">
 
-    <span class="header d-flex justify-content-between">
+    <span class="header d-flex justify-content-between align-items-center">
 
       <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
         <span class="align-items-center d-flex">
@@ -17,9 +17,12 @@
           </div>
         </span>
       </router-link>
-
-      <i v-if="post.creatorId == account.id" type="button" @click="editPost()"
-        class="fs-2 editButton mdi mdi-dots-horizontal-circle"></i>
+      <span class="d-flex px-3">
+        <i v-if="post.creatorId == account.id" type="button" @click="editPost(post)" title="Edit Post"
+          class="px-3 fs-1 editButton text-primary mdi mdi-file-edit"></i>
+        <i v-if="post.creatorId == account.id" type="button" @click="removePost(post.id)" title="Delete Post"
+          class="px-3 fs-1 editButton text-danger mdi mdi-trash-can"></i>
+      </span>
 
     </span>
 
@@ -65,9 +68,19 @@ export default {
           logger.error(error);
           Pop.error(error);
         }
-      }
-    }
+      },
 
+      async removePost(postId) {
+        try {
+          postsService.removePost(postId);
+        } catch (error) {
+          logger.error(error);
+          Pop.error(error);
+        }
+      }
+
+
+    }
   }
 };
 </script>

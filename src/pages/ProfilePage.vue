@@ -5,7 +5,7 @@
 
         <section class="row p-3">
           <div v-if="profile" class="col-12 pb-4 px-5">
-            <UserProfile :profile="profile" />
+            <ProfileCard :profile="profile" />
           </div>
           <div v-else-if="invalid" class="col-12 pb-4 px-5">
             <div class="fs-3 text-center text-muted p-5">
@@ -70,7 +70,7 @@
 
 <script>
 import { computed, onMounted } from "vue";
-import UserProfile from "../components/UserProfile.vue";
+import ProfileCard from "../components/ProfileCard.vue";
 import Pagination from "../components/Pagination.vue";
 import PostCard from "../components/PostCard.vue";
 import AdTall from "../components/AdTall.vue";
@@ -134,7 +134,7 @@ export default {
       invalid: computed(() => AppState.invalid),
     };
   },
-  components: { UserProfile, Pagination, PostCard, AdTall }
+  components: { ProfileCard, Pagination, PostCard, AdTall }
 };
 </script>
 

@@ -2,10 +2,12 @@
   <section class="row align-items-center">
     <div class="col-12 col-lg-3">
       <hr>
-      <div class="text-center postingAs">
-        <img :src="account.picture" :alt="account.name" class="rounded-circle">
-        <p class="fs-5">Posting as: <b>{{ account.name }}</b></p>
-      </div>
+      <router-link :to="{ name: 'Profile', params: { profileId: account.id } }">
+        <div class="text-center postingAs">
+          <img :src="account.picture" :alt="account.name" class="rounded-circle">
+          <p class="fs-5">Posting as: <b>{{ account.name }}</b></p>
+        </div>
+      </router-link>
       <hr>
     </div>
     <div class="col-12 col-lg-9">

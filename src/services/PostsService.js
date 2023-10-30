@@ -61,11 +61,11 @@ class PostsService {
     logger.log('[POSTS SERVICE] updatePost(): ', AppState.posts[toBeUpdatedIndex])
   }
 
-  async removePost(postObj) {
-    const toBeDeletedIndex = AppState.posts.findIndex(post => post.id == postObj.id)
+  async removePost(postId) {
+    const toBeDeletedIndex = AppState.posts.findIndex(post => post.id == postId)
     AppState.posts.splice(toBeDeletedIndex, 1)
-    const res = await api.delete(`api/posts/${postObj.id}`)
-    logger.log('[POSTS SERVICE] removePost(): ', res.data, '::', postObj)
+    const res = await api.delete(`api/posts/${postId}`)
+    logger.log('[POSTS SERVICE] removePost(): ', res.data, '::', postId)
   }
 
 }
