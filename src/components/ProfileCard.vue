@@ -48,7 +48,7 @@
     <div v-if="route.name != 'Search'" class="col-12 col-md-auto d-flex justify-content-center">
       <img :src="profile.coverImg" :alt="profile.name" class="coverImg rounded">
     </div>
-    <p class="px-4 pt-3">{{ profile.bio }}</p>
+    <p v-if="route.name != 'Search'" class="px-4 pt-3">{{ profile.bio }}</p>
   </section>
 </template>
 

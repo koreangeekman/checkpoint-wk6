@@ -27,7 +27,7 @@
     </section>
 
     <section class="row">
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-5">
         <section v-if="profiles.length >= 1 && route.query.query" class="row">
 
           <div class="col-12" v-for="profile in profiles" :key="profile.id">
@@ -54,7 +54,7 @@
 
       </div>
 
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-7">
         <section v-if="posts.length >= 1 && route.query.query" class="row">
 
           <div v-if="currentPage.totalPages > 1" class="col-12 d-flex justify-content-between">
