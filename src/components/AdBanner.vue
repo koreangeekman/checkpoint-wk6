@@ -9,10 +9,7 @@ import { AppState } from "../AppState.js";
 import { adsService } from "../services/AdsService.js";
 
 export default {
-  props: {
-    ad: { type: Number },
-    first: { type: Boolean }
-  },
+  props: { ad: { type: Number } },
 
   setup() {
 
@@ -26,7 +23,6 @@ export default {
     }
 
     onMounted(() => {
-      // TODO a way to prevent re-running
       _getAds();
     })
 

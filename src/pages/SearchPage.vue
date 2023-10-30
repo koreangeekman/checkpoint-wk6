@@ -5,13 +5,13 @@
       <div class="col-12 px-5 py-3">
         <section class="row justify-content-between align-items-center ">
           <div class="col-12 col-md-5 px-5">
-            <AdBanner :ad="0" :first="true" class="rounded" />
+            <AdBanner :ad="0" class="rounded" />
           </div>
           <div class="col-12 col-md-2 card px-4 py-5">
             <Search />
           </div>
           <div class="col-12 col-md-5 px-5">
-            <AdBanner :ad="1" :first="false" class="rounded" />
+            <AdBanner :ad="1" class="rounded" />
           </div>
         </section>
       </div>
