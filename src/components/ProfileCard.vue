@@ -1,13 +1,14 @@
 <template>
   <section class="row bgImg justify-content-between shadow rounded m-1 m-md-3 py-3 px-2">
-    <div class="col-12 col-md-auto d-flex justify-content-center p-3">
+    <div class="col-12 col-md-auto d-flex justify-content-center p-3"
+      :class="route.name == 'Search' ? 'align-items-center' : ''">
       <router-link :disabled="route.name == 'Profile'" :to="{ name: 'Profile', params: { profileId: profile.id } }">
         <div class="relative">
           <img :src="profile.picture" :alt="profile.name" class="profilePicture rounded-circle">
           <i v-if="profile.graduated" class="absolute grad text-primary rounded-circle mdi mdi-account-school"></i>
         </div>
       </router-link>
-      <div class="ps-4">
+      <div v-if="route.name != 'Search'" class="ps-4">
         <p class="fw-bold fs-1">{{ profile.name }}</p>
         <p class="mb-3">{{ profile.email }}</p>
 
@@ -36,13 +37,18 @@
           </p>
         </span>
 
-        <p class="fs-5 fw-bold my-2">Account created on</p>
-        <p class="" title="Account created at"><small>{{ profile.createdAt.toLocaleDateString() }}</small></p>
+        <p class="fs-5 my-2">Account created on: <small>{{ profile.createdAt.toLocaleDateString() }}</small></p>
+      </div>
+      <div v-else class="ps-4">
+        <p class="fs-3">{{ profile.class ? profile.class : ' [none set]' }}</p>
+        <p class="fw-bold fs-1">{{ profile.name }}</p>
+
       </div>
     </div>
-    <div class="col-12 col-md-auto d-flex justify-content-center">
+    <div v-if="route.name != 'Search'" class="col-12 col-md-auto d-flex justify-content-center">
       <img :src="profile.coverImg" :alt="profile.name" class="coverImg rounded">
     </div>
+    <p class="px-4 pt-3">{{ profile.bio }}</p>
   </section>
 </template>
 

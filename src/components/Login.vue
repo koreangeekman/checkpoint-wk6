@@ -10,7 +10,7 @@
             Manage Account
           </div>
         </router-link>
-        <div class="btn me-md-3 text-danger selectable" @click="logout">
+        <div class="btn btn-danger text-white fw-bold mx-3 selectable" @click="logout">
           <i class="mdi mdi-logout"></i>
           logout
         </div>
@@ -39,4 +39,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// .btn-danger {
+//   // opacity: .75;
+//   // background-color: rgba(255, 0, 0, 0.8);
+// }
+</style>

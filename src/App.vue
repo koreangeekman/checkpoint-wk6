@@ -29,7 +29,7 @@ export default {
 }
 
 body {
-  background-color: whitesmoke;
+  background-color: #f5f9f7;
 }
 
 footer {

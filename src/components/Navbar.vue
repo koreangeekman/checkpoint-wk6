@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar px-3">
+  <nav class="navbar px-3 py-0">
     <div class="d-flex w-100 justify-content-between align-items-center">
       <span class="d-flex align-items-center">
         <router-link :to="{ name: 'Home' }">
@@ -43,6 +43,10 @@ export default {
 <style scoped>
 a:hover {
   text-decoration: none;
+}
+
+nav {
+  background-image: linear-gradient(to right, #38c4c6, #8eded8);
 }
 
 .nav-link {

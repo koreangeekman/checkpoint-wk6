@@ -95,6 +95,10 @@ export default {
   line-height: 1.5rem;
 }
 
+.card {
+  background-color: whitesmoke;
+}
+
 .postImg {
   max-height: 40vh;
   width: 100%;
