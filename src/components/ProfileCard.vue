@@ -12,24 +12,27 @@
         <p class="mb-3">{{ profile.email }}</p>
 
         <p class="mb-3">Class: <small>{{ profile.class ? profile.class : ' [none set]' }}</small></p>
-        <u v-if="profile.resume" :type="profile.resume ? 'button' : ''">
-          <p class="mb-3" :title="profile.resume ? 'resume link' : 'no resume linked yet'" :href="profile.resume">
-            Resume{{ profile.resume ? ' Link' : ':' }}
-            <small>{{ profile.resume ? '' : ' [none set]' }}</small>
-          </p>
-        </u>
+        <a v-if="profile.resume" class="mb-3" title="resume link" type="button" :href="profile.resume">
+          Resume{{ profile.resume ? ' Link' : ':' }}
+        </a>
+        <p v-else class="mb-3" title="no resume linked yet">
+          Resume: <small> [none set]</small>
+        </p>
 
-        <p class="fs-5 fw-bold mb-2">Socials</p>
+        <p class="fs-5 fw-bold mb-2 mt-3">Socials</p>
         <span class="d-flex">
-          <p class="d-flex align-items-center" title="github link" :href="profile.github"
-            :type="profile.github ? 'button' : ''">
-            <i class="fs-2 px-2 mdi mdi-github"></i>
-            <small v-if="!profile.github"> [none set]</small>
+          <a v-if="profile.github" class="d-flex align-items-center" title="github link" :href="profile.github"
+            type="button"><i class="fs-2 px-3 mdi mdi-github"></i>
+          </a>
+          <p v-else class="d-flex align-items-center" title="github icon">
+            <i class="fs-2 px-3 mdi mdi-github"></i><small> [none set]</small>
           </p>
-          <p class="d-flex align-items-center" title="linkedin" :href="profile.linkedin"
-            :type="profile.github ? 'button' : ''">
-            <i class="fs-2 px-2 mdi mdi-linkedin"></i>
-            <small v-if="!profile.linkedin"> [none set]</small>
+
+          <a v-if="profile.linkedin" class="d-flex align-items-center" title="linkedin" :href="profile.linkedin"
+            type="button"><i class="fs-2 px-3 mdi mdi-linkedin"></i>
+          </a>
+          <p v-else class="d-flex align-items-center" title="linkedin icon">
+            <i class="fs-2 px-3 mdi mdi-linkedin"></i><small>[none set]</small>
           </p>
         </span>
 
