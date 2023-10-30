@@ -31,7 +31,7 @@
         <section v-if="profiles.length >= 1 && route.query.query" class="row">
 
           <div class="col-12" v-for="profile in profiles" :key="profile.id">
-            <UserProfile :profile="profile" />
+            <ProfileCard :profile="profile" />
           </div>
 
           <div v-if="profiles.length >= 1" class="text-center py-3">
@@ -99,7 +99,7 @@ import { computed, onMounted, ref } from 'vue';
 import { profilesService } from "../services/ProfilesService.js";
 import { postsService } from "../services/PostsService.js";
 import { adsService } from "../services/AdsService.js";
-import UserProfile from "../components/UserProfile.vue";
+import ProfileCard from "../components/ProfileCard.vue";
 import Pagination from "../components/Pagination.vue";
 import PostCard from "../components/PostCard.vue";
 import Search from "../components/Search.vue";
@@ -155,7 +155,7 @@ export default {
 
     };
   },
-  components: { UserProfile, PostCard, Pagination, Search, AdBanner }
+  components: { ProfileCard, PostCard, Pagination, Search, AdBanner }
 };
 </script>
 

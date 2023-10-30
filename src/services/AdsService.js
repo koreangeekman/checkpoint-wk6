@@ -9,7 +9,7 @@ class AdsService {
     AppState.adsPending = true;
     const res = await api.get('api/ads');
     AppState.ads = res.data.map(ad => new Ad(ad));
-    logger.log('[ADS SERVICE] getAds(): ', AppState.ads);
+    // logger.log('[ADS SERVICE] getAds(): ', AppState.ads);
   }
 
   async getAdsByCount(count) {

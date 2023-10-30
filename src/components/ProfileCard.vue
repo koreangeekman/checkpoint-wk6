@@ -1,44 +1,54 @@
 <template>
-  <div class="d-flex bgImg align-items-center justify-content-between shadow m-3 p-3">
-    <section class="d-flex">
-      <router-link :to="{ name: 'Profile', params: { profileId: profile.id } }">
+  <section class="row bgImg justify-content-between shadow rounded m-1 m-md-3 py-3 px-2">
+    <div class="col-12 col-md-auto d-flex justify-content-center p-3">
+      <router-link :disabled="route.name == 'Profile'" :to="{ name: 'Profile', params: { profileId: profile.id } }">
         <div class="relative">
           <img :src="profile.picture" :alt="profile.name" class="profilePicture rounded-circle">
           <i v-if="profile.graduated" class="absolute grad text-primary rounded-circle mdi mdi-account-school"></i>
         </div>
       </router-link>
-      <span class="px-4">
+      <div class="ps-4">
         <p class="fw-bold fs-3">{{ profile.name }}</p>
-        <p class="">{{ profile.email }}</p>
-        <p class="">Class: <small>{{ profile.class ? '' : '[none set]' }}</small></p>
-        <p class="" title="resume link" :href="profile.resume">Resume: <small>{{ profile.resume ? '' : '[none set]'
-        }}</small></p>
-      </span>
-    </section>
-    <span class="d-block px-4">
-      <p class="fs-5 fw-bold mb-2">Socials</p>
-      <p class="" title="github link" :href="profile.github"><i class="fs-4 mdi mdi-github"></i>
-        <small>{{ profile.github ? '' : '[none set]' }}</small>
-      </p>
-      <p class="" title="linkedin" :href="profile.linkedin"><i class="fs-4 mdi mdi-linkedin"></i>
-        <small>{{ profile.linkedin ? '' : '[none set]' }}</small>
-      </p>
-      <p class="fs-5 fw-bold my-2">Account</p>
-      <p class="" title="Account created at"><small>{{ profile.createdAt.toLocaleDateString() }}</small></p>
-    </span>
-    <img :src="profile.coverImg" :alt="profile.name" class="coverImg rounded">
-  </div>
+        <p class="mb-1">{{ profile.email }}</p>
+
+        <p class="">Class: <small>{{ profile.class ? '' : ' [none set]' }}</small></p>
+        <p class="mb-3" title="resume link" :href="profile.resume">Resume:
+          <small>{{ profile.resume ? '' : ' [none set]' }}</small>
+        </p>
+
+        <p class="fs-5 fw-bold mb-2">Socials</p>
+        <p class="" title="github link" :href="profile.github" :type="profile.github ? 'button' : ''"><i
+            class="fs-4 mdi mdi-github"></i>
+          <small>{{ profile.github ? '' : ' [none set]' }}</small>
+        </p>
+        <p class="mb-3" title="linkedin" :href="profile.linkedin" :type="profile.github ? 'button' : ''"><i
+            class="fs-4 mdi mdi-linkedin"></i>
+          <small>{{ profile.linkedin ? '' : ' [none set]' }}</small>
+        </p>
+
+        <p class="fs-5 fw-bold my-2">Account created on</p>
+        <p class="" title="Account created at"><small>{{ profile.createdAt.toLocaleDateString() }}</small></p>
+      </div>
+    </div>
+    <div class="col-12 col-md-auto d-flex justify-content-center">
+      <img :src="profile.coverImg" :alt="profile.name" class="coverImg rounded">
+    </div>
+  </section>
 </template>
 
 
 <script>
+import { useRoute } from "vue-router";
 import { Profile } from "../models/Profile.js";
 
 export default {
   props: { profile: { type: Profile } },
 
   setup() {
+    const route = useRoute();
+
     return {
+      route
     }
   }
 };
@@ -53,9 +63,10 @@ export default {
 }
 
 .coverImg {
-  max-height: 12rem;
-  max-width: 12rem;
   object-fit: cover;
+  object-position: center;
+  max-width: 100%;
+  height: 20vh;
 }
 
 .profilePicture {

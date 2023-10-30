@@ -4,7 +4,7 @@
       <div class="col-12 col-lg-10 listPosts">
 
         <section class="row p-3">
-          <div v-if="profile" class="col-12 pb-4 px-5">
+          <div v-if="profile" class="col-12 pb-4 px-md-5">
             <ProfileCard :profile="profile" />
           </div>
           <div v-else-if="invalid" class="col-12 pb-4 px-5">
@@ -117,6 +117,7 @@ export default {
 
     onMounted(async () => {
       postsService.clearData();
+      profilesService.clearData();
       adsService.clearPending();
 
       await _getProfileById();

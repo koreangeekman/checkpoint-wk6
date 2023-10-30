@@ -3,20 +3,20 @@
 
     <span class="header d-flex justify-content-between align-items-center">
 
-      <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
-        <span class="align-items-center d-flex">
+      <span class="align-items-center d-flex">
+        <router-link :disabled="route.name == 'Profile'" :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
           <img :src="post.creator.picture" :alt="post.creator.name" class="rounded-circle authorImg">
-          <div class="d-block p-3">
-            <p class="mb-0 fw-bold fs-5">{{ post.creator.name }}</p>
-            <span class="d-flex align-items-center">
-              <p class="mb-0 text-secondary">
-                {{ post.createdAt.toLocaleDateString() + ' @ ' + post.createdAt.toLocaleTimeString() }}
-              </p>
-              <i v-if="post.creator.graduated" class="m-0 mx-2 fs-4 text-primary mdi mdi-account-school"></i>
-            </span>
-          </div>
-        </span>
-      </router-link>
+        </router-link>
+        <div class="d-block p-3">
+          <p class="mb-0 fw-bold fs-5">{{ post.creator.name }}</p>
+          <span class="d-flex align-items-center">
+            <p class="mb-0 text-secondary">
+              {{ post.createdAt.toLocaleDateString() + ' @ ' + post.createdAt.toLocaleTimeString() }}
+            </p>
+            <i v-if="post.creator.graduated" class="m-0 mx-2 fs-4 text-primary mdi mdi-account-school"></i>
+          </span>
+        </div>
+      </span>
       <span class="d-flex px-3">
         <i v-if="post.creatorId == account.id" type="button" @click="editPost(post)" title="Edit Post"
           class="px-3 fs-1 editButton text-primary mdi mdi-file-edit"></i>
@@ -51,14 +51,18 @@ import { AppState } from "../AppState";
 import { postsService } from "../services/PostsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import { useRoute } from "vue-router";
 
 
 export default {
   props: { post: { type: Post } },
 
   setup() {
+    const route = useRoute();
 
     return {
+      route,
+
       account: computed(() => AppState.account),
 
       async toggleLike(postId) {
