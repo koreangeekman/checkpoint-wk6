@@ -47,13 +47,13 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, onMounted } from 'vue';
-import { postsService } from "../services/PostsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import { postsService } from "../services/PostsService";
+import { adsService } from "../services/AdsService";
 import AddPost from "../components/AddPost.vue";
 import PostCard from "../components/PostCard.vue";
 import Pagination from "../components/Pagination.vue";
-import { adsService } from "../services/AdsService";
 import AdTall from "../components/AdTall.vue";
 
 export default {
@@ -71,6 +71,8 @@ export default {
     }
     onMounted(() => {
       postsService.clearData();
+      adsService.clearPending()
+
       _getPostsAndAds();
     });
     return {

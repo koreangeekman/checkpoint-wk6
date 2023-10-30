@@ -2,16 +2,18 @@
   <div class="container-fluid">
 
     <section class="row">
-      <div class="col-12 d-flex justify-content-between px-5 py-3">
-        <div class="adRow">
-
-        </div>
-        <div class="card p-3">
-          <Search />
-        </div>
-        <div class="adrow">
-
-        </div>
+      <div class="col-12 px-5 py-3">
+        <section class="row justify-content-between align-items-center ">
+          <div class="col-12 col-md-5 px-5">
+            <AdBanner :ad="0" :first="true" class="rounded" />
+          </div>
+          <div class="col-12 col-md-2 card px-4 py-5">
+            <Search />
+          </div>
+          <div class="col-12 col-md-5 px-5">
+            <AdBanner :ad="1" :first="false" class="rounded" />
+          </div>
+        </section>
       </div>
     </section>
     <section class="row">
@@ -95,11 +97,13 @@
 import { AppState } from '../AppState';
 import { computed, onMounted, ref } from 'vue';
 import { profilesService } from "../services/ProfilesService.js";
+import { postsService } from "../services/PostsService.js";
+import { adsService } from "../services/AdsService.js";
 import UserProfile from "../components/UserProfile.vue";
 import Pagination from "../components/Pagination.vue";
 import PostCard from "../components/PostCard.vue";
 import Search from "../components/Search.vue";
-import { postsService } from "../services/PostsService.js";
+import AdBanner from "../components/AdBanner.vue";
 import { useRoute } from "vue-router";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
@@ -133,6 +137,7 @@ export default {
     onMounted(() => {
       profilesService.clearData();
       postsService.clearData();
+      adsService.clearPending();
 
       let query = route.query.query;
       if (!query) { return }
@@ -150,7 +155,7 @@ export default {
 
     };
   },
-  components: { UserProfile, PostCard, Pagination, Search }
+  components: { UserProfile, PostCard, Pagination, Search, AdBanner }
 };
 </script>
 

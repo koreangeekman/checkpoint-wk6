@@ -26,4 +26,5 @@ export const AppState = reactive({
 
   searching: false,
   invalid: false,
+  adsPending: false
 })

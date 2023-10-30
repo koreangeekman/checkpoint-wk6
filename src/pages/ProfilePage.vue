@@ -117,6 +117,8 @@ export default {
 
     onMounted(async () => {
       postsService.clearData();
+      adsService.clearPending();
+
       await _getProfileById();
       _getPostsByProfileId();
       _getAds();

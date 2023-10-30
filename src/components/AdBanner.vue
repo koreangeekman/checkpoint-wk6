@@ -1,16 +1,39 @@
 <template>
-  <img :src="ad.banner" :alt="ad.title" :href="ad.linkUrl" class="my-2 img-fluid">
+  <img v-if="ads.length == 2" :src="ads[ad].banner" :alt="ads[ad].title" :href="ads[ad].linkUrl" class="my-2 img-fluid">
 </template>
 
 
 <script>
-import { Ad } from "../models/Ad.js";
+import { computed, onMounted, ref } from "vue";
+import { AppState } from "../AppState.js";
+import { adsService } from "../services/AdsService.js";
 
 export default {
-  props: { ad: { type: Ad } },
+  props: {
+    ad: { type: Number },
+    first: { type: Boolean }
+  },
 
   setup() {
-    return {}
+
+    async function _getAds() {
+      try {
+        await adsService.getAds();
+      } catch (error) {
+        logger.error(error);
+        Pop.error(error);
+      }
+    }
+
+    onMounted(() => {
+      // TODO a way to prevent re-running
+      _getAds();
+    })
+
+    return {
+      ads: computed(() => AppState.ads),
+
+    }
   }
 };
 </script>

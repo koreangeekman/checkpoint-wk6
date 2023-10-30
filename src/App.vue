@@ -28,6 +28,9 @@ export default {
   --main-height: calc(100vh - 32px - 64px);
 }
 
+body {
+  background-color: whitesmoke;
+}
 
 footer {
   display: grid;
