@@ -30,13 +30,13 @@
             <Pagination :currentPage="currentPage" />
           </div>
 
+          <div class="d-block d-md-none col-12 col-lg-2">
+            <AdBanner :ad="1" />
+          </div>
+
         </section>
-
       </div>
 
-      <div class="d-block d-md-none col-12 col-lg-2">
-        <AdBanner :ad="1" />
-      </div>
       <div class="d-none d-md-block col-12 col-lg-2">
         <div v-for="ad in ads" :key="ad.title">
           <AdTall :ad="ad" />

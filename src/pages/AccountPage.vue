@@ -1,13 +1,21 @@
 <template>
-  <div class="about text-center pb-4">
-    <h1>Welcome {{ account.name }}</h1>
-    <router-link :disabled="route.name == 'Profile'" :to="{ name: 'Profile', params: { profileId: account.id } }">
-      <img class="rounded-circle mt-2 mb-3" :src="account.picture" alt="" />
-    </router-link>
-    <p>{{ account.email }}</p>
-    <p class="mb-0"> Account Created: {{ account.createdAt ? account.createdAt.toLocaleDateString() : '' }}</p>
-    <p class="mb-0">Last updated: {{ account.updatedAt ? account.updatedAt.toLocaleDateString() : '' }}</p>
-  </div>
+  <section class="row align-items-center">
+    <div class="col-12 col-md-4 d-flex justify-content-center">
+      <ad-square :ad="0" />
+    </div>
+    <div class="col-12 col-md-4 about text-center pb-4">
+      <h1>Welcome {{ account.name }}</h1>
+      <router-link :disabled="route.name == 'Profile'" :to="{ name: 'Profile', params: { profileId: account.id } }">
+        <img class="rounded-circle mt-2 mb-3" :src="account.picture" alt="" />
+      </router-link>
+      <p>{{ account.email }}</p>
+      <p class="mb-0"> Account Created: {{ account.createdAt ? account.createdAt.toLocaleDateString() : '' }}</p>
+      <p class="mb-0">Last updated: {{ account.updatedAt ? account.updatedAt.toLocaleDateString() : '' }}</p>
+    </div>
+    <div class="col-12 col-md-4 d-flex justify-content-center">
+      <ad-square :ad="1" />
+    </div>
+  </section>
 
   <div class="d-flex justify-content-center">
 
@@ -85,36 +93,36 @@ import { AppState } from '../AppState';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { accountService } from "../services/AccountService";
+import AdSquare from "../components/AdSquare.vue";
 
 export default {
   setup() {
     const editable = ref({});
     const route = useRoute();
-
     watchEffect(() => {
       if (AppState.account) {
-        editable.value = { ...AppState.account }
-      } else {
-        editable.value = {}
+        editable.value = { ...AppState.account };
       }
-    })
-
+      else {
+        editable.value = {};
+      }
+    });
     return {
       editable,
       route,
-
       account: computed(() => AppState.account),
-
       async updateProfile() {
         try {
-          accountService.updateAccount(editable.value)
-        } catch (error) {
+          accountService.updateAccount(editable.value);
+        }
+        catch (error) {
           logger.error(error);
           Pop.error(error);
         }
       }
-    }
-  }
+    };
+  },
+  components: { AdSquare }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <img v-if="ads.length == 2" :src="ads[ad].banner" :alt="ads[ad].title" :href="ads[ad].linkUrl" class="img-fluid">
+  <img v-if="ads.length >= 2" :src="ads[ad].square" :alt="ads[ad].title" :href="ads[ad].linkUrl" class="img-fluid">
 </template>
 
 
