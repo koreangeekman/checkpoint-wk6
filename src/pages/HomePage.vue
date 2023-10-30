@@ -12,7 +12,7 @@
 
         <section class="row justify-content-end">
 
-          <div v-if="windowWidth < 768" class="col-12 col-lg-2">
+          <div class="d-block d-md-none col-12 col-lg-2">
             <AdBanner :ad="0" />
           </div>
 
@@ -25,10 +25,6 @@
             <PostCard :post="post" />
           </div>
 
-          <!-- <div v-if="posts == []" class="text-center p-5">
-            <p class="fs-1 fw-bold mb-0">No more posts... <i class="mdi mdi-help-network-outline"></i></p>
-          </div> -->
-
           <div v-if="currentPage.totalPages > 1"
             class="col-12 col-lg-9 d-flex justify-content-between align-items-center px-5">
             <Pagination :currentPage="currentPage" />
@@ -38,10 +34,10 @@
 
       </div>
 
-      <div v-if="windowWidth < 768" class="col-12 col-lg-2">
+      <div class="d-block d-md-none col-12 col-lg-2">
         <AdBanner :ad="1" />
       </div>
-      <div v-else class="col-12 col-lg-2">
+      <div class="d-none d-md-block col-12 col-lg-2">
         <div v-for="ad in ads" :key="ad.title">
           <AdTall :ad="ad" />
         </div>
@@ -53,7 +49,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted } from 'vue';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { postsService } from "../services/PostsService";
@@ -66,7 +62,6 @@ import AdBanner from "../components/AdBanner.vue";
 
 export default {
   setup() {
-    // const windowWidth = ref(window.innerWidth);
 
     async function _getPostsAndAds() {
       try {
@@ -88,14 +83,12 @@ export default {
     });
 
     return {
-      // windowWidth,
 
       posts: computed(() => AppState.posts),
       currentPage: computed(() => AppState.currentPage),
       ads: computed(() => AppState.ads),
       account: computed(() => AppState.account),
 
-      windowWidth: computed(() => window.innerWidth),
     };
   },
   components: { AddPost, Pagination, PostCard, AdTall, AdBanner }

@@ -121,7 +121,7 @@ export default {
         logger.error(error);
         Pop.error(error);
       }
-    };
+    }
 
     async function _getPostsByQuery(query) {
       try {
@@ -132,7 +132,7 @@ export default {
         logger.error(error);
         Pop.error(error);
       }
-    };
+    }
 
     onMounted(() => {
       profilesService.clearData();

@@ -28,9 +28,10 @@
             v-if="currentPage.totalPages > 1">
             <Pagination :currentPage="currentPage" />
           </div>
-
-          <div v-if="posts.length > 0" v-for="post in posts" :key="post.id" class="col-12 col-lg-9">
-            <PostCard :post="post" />
+          <div v-if="posts.length > 0" class="col-12 col-lg-9">
+            <div v-for="post in posts" :key="post.id">
+              <PostCard :post="post" />
+            </div>
           </div>
           <div v-else-if="invalid"></div>
           <div v-else class="d-flex justify-content-center p-5">
@@ -95,7 +96,7 @@ export default {
         logger.error(error);
         Pop.error(error);
       }
-    };
+    }
 
     async function _getPostsByProfileId() {
       try {
@@ -104,7 +105,7 @@ export default {
         logger.error(error);
         Pop.error(error);
       }
-    };
+    }
 
     async function _getAds() {
       try {
@@ -115,12 +116,12 @@ export default {
       }
     }
 
-    onMounted(async () => {
+    onMounted(() => {
       postsService.clearData();
       profilesService.clearData();
       adsService.clearPending();
 
-      await _getProfileById();
+      _getProfileById();
       _getPostsByProfileId();
       _getAds();
     });

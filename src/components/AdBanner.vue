@@ -7,6 +7,8 @@
 import { computed, onMounted, ref } from "vue";
 import { AppState } from "../AppState.js";
 import { adsService } from "../services/AdsService.js";
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
 
 export default {
   props: { ad: { type: Number } },
