@@ -35,7 +35,9 @@
       </div>
 
       <div class="col-12 col-lg-2">
-        <img v-for="ad in ads" :key="ad.title" :src="ad.tall" :alt="ad.title" :href="ad.linkUrl" class="my-2 img-fluid">
+        <div v-for="ad in ads" :key="ad.title">
+          <AdVertical :ad="ad" />
+        </div>
       </div>
 
     </section>
@@ -52,6 +54,7 @@ import AddPost from "../components/AddPost.vue";
 import PostCard from "../components/PostCard.vue";
 import Pagination from "../components/Pagination.vue";
 import { adsService } from "../services/AdsService";
+import AdVertical from "../components/AdVertical.vue";
 
 export default {
   setup() {
@@ -77,7 +80,7 @@ export default {
       account: computed(() => AppState.account),
     };
   },
-  components: { AddPost, Pagination, PostCard }
+  components: { AddPost, Pagination, PostCard, AdVertical }
 }
 </script>
 

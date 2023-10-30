@@ -7,6 +7,18 @@
           <div v-if="profile" class="col-12 pb-4 px-5">
             <UserProfile :profile="profile" />
           </div>
+          <div v-else-if="invalid" class="col-12 pb-4 px-5">
+            <div class="fs-3 text-center text-muted p-5">
+              <i class="fs-1 mdi mdi-not-equal-variant"></i><br>
+              <b>Invalid Profile ID</b><br>
+              <i class="fs-1 mdi mdi-not-equal-variant"></i>
+            </div>
+          </div>
+          <div v-else class="col-12 pb-4 px-5">
+            <div class="fs-3 text-center text-muted p-5">
+              Loading profile.. <i class="mdi mdi-tire mdi-spin"></i>
+            </div>
+          </div>
           <hr>
         </section>
 
@@ -17,12 +29,13 @@
             <Pagination :currentPage="currentPage" />
           </div>
 
-          <div v-if="posts" v-for="post in posts" :key="post.id" class="col-12 col-lg-9">
+          <div v-if="posts.length > 0" v-for="post in posts" :key="post.id" class="col-12 col-lg-9">
             <PostCard :post="post" />
           </div>
+          <div v-else-if="invalid"></div>
           <div v-else class="d-flex justify-content-center p-5">
             <p class="mb-0 fs-1">
-              Loading... <i class="mdi mdi-swap-horizontal-circle-outline mdi-spin"></i>
+              Loading posts... <i class="mdi mdi-swap-horizontal-circle-outline mdi-spin"></i>
             </p>
           </div>
 
@@ -34,16 +47,20 @@
             v-if="currentPage.totalPages > 1">
             <Pagination :currentPage="currentPage" />
           </div>
-          <div class="col-12 col-lg-9 text-center px-5" v-else>
-            <i><small>[ Less than 20 results found ]</small></i>
-          </div>
 
+          <div class="col-12 col-lg-9 pb-2">
+            <div v-if="posts.length >= 1 && currentPage.totalPages == 1" class="text-center py-3">
+              <small>[ {{ posts.length }} post{{ posts.length > 1 ? 's' : '' }} found ]</small>
+            </div>
+          </div>
         </section>
 
       </div>
 
       <div class="col-12 col-lg-2">
-        <img v-for="ad in ads" :key="ad.title" :src="ad.tall" :alt="ad.title" :href="ad.linkUrl" class="my-2 img-fluid">
+        <div v-for="ad in ads" :key="ad.title">
+          <AdVertical :ad="ad" />
+        </div>
       </div>
 
     </section>
@@ -56,6 +73,7 @@ import { computed, onMounted } from "vue";
 import UserProfile from "../components/UserProfile.vue";
 import Pagination from "../components/Pagination.vue";
 import PostCard from "../components/PostCard.vue";
+import AdVertical from "../components/AdVertical.vue";
 import Pop from "../utils/Pop";
 import { logger } from "../utils/Logger";
 import { AppState } from "../AppState";
@@ -71,8 +89,9 @@ export default {
 
     async function _getProfileById() {
       try {
-        profilesService.getProfileById(route.params.profileId);
+        await profilesService.getProfileById(route.params.profileId);
       } catch (error) {
+        AppState.invalid = true;
         logger.error(error);
         Pop.error(error);
       }
@@ -97,20 +116,23 @@ export default {
     }
 
     onMounted(async () => {
-      await postsService.clearData();
+      postsService.clearData();
       await _getProfileById();
       _getPostsByProfileId();
       _getAds();
     });
 
     return {
+      route,
+
       profile: computed(() => AppState.activeProfile),
       posts: computed(() => AppState.posts),
       currentPage: computed(() => AppState.currentPage),
-      ads: computed(() => AppState.ads)
+      ads: computed(() => AppState.ads),
+      invalid: computed(() => AppState.invalid),
     };
   },
-  components: { UserProfile, Pagination, PostCard }
+  components: { UserProfile, Pagination, PostCard, AdVertical }
 };
 </script>
 

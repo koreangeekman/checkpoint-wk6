@@ -2,9 +2,15 @@
   <div class="container-fluid">
 
     <section class="row">
-      <div class="col-12 d-flex justify-content-center px-5 py-3">
+      <div class="col-12 d-flex justify-content-between px-5 py-3">
+        <div class="adRow">
+
+        </div>
         <div class="card p-3">
           <Search />
+        </div>
+        <div class="adrow">
+
         </div>
       </div>
     </section>
@@ -62,7 +68,7 @@
           </div>
 
           <div v-if="posts.length >= 1 && currentPage.totalPages == 1" class="text-center py-3">
-            <small>[ Only {{ posts.length }} post{{ posts.length > 1 ? 's' : '' }} found.. ]</small>
+            <small>[ {{ posts.length }} post{{ posts.length > 1 ? 's' : '' }} found ]</small>
           </div>
 
         </section>

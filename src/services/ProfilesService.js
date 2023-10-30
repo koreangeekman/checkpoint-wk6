@@ -3,6 +3,7 @@ import { CurrentPage } from "../models/CurrentPage.js";
 import { Profile } from "../models/Profile";
 import { Post } from "../models/Post";
 import { api } from "./AxiosService";
+import { logger } from "../utils/Logger.js";
 
 class ProfilesService {
   async getProfileById(profileId) {
@@ -26,6 +27,7 @@ class ProfilesService {
   clearData() {
     AppState.profiles = [];
     AppState.activeProfile = null;
+    AppState.invalid = false;
   }
 }
 
