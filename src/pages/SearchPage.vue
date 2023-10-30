@@ -6,27 +6,53 @@
         <div class="card p-3">
           <Search />
         </div>
-        <hr>
       </div>
+    </section>
+    <section class="row">
+      <div v-if="!route.query.query" class="col-12 text-center py-3">
+        <p class="mb-0">
+          <small>[ Please enter a query.. ]</small>
+        </p>
+      </div>
+      <div class="mb-3"></div>
+      <hr>
+    </section>
 
-      <div v-if="posts == []" class="text-center py-3"><small>[ Please enter a query.. ]</small></div>
-
+    <section class="row">
       <div class="col-12 col-lg-6">
-        <section v-if="profiles" class="row">
+        <section v-if="profiles.length >= 1 && route.query.query" class="row">
+
           <div class="col-12" v-for="profile in profiles" :key="profile.id">
             <UserProfile :profile="profile" />
           </div>
+
+          <div v-if="profiles.length >= 1" class="text-center py-3">
+            <small>[ {{ profiles.length }} profile{{ profiles.length > 1 ? 's' : '' }} found ]</small>
+          </div>
+
         </section>
-        <section v-else class="row">
-          <div class="col-12 fs-1 text-center p-5">Loading content... <i class="mdi mdi-router mdi-spin"></i></div>
+
+        <section v-if="searching" class="row text-center py-3">
+          <div class="col-12 fs-3 text-center text-muted p-5">
+            Searching profiles.. <i class="mdi mdi-tire mdi-spin"></i>
+          </div>
         </section>
+
+        <section v-if="route.query.query && profiles.length == 0 && !searching" class="row">
+          <div class="col-12 fs-3 text-center text-muted p-5">
+            No profile matches... <i class="mdi mdi-note-off-outline"></i>
+          </div>
+        </section>
+
       </div>
 
       <div class="col-12 col-lg-6">
-        <section v-if="posts" class="row">
+        <section v-if="posts.length >= 1 && route.query.query" class="row">
+
           <div v-if="currentPage.totalPages > 1" class="col-12 d-flex justify-content-between">
             <Pagination :currentPage="currentPage" />
           </div>
+
           <div class="col-12" v-for="post in posts" :key="post.id">
             <PostCard :post="post" />
           </div>
@@ -34,13 +60,25 @@
           <div v-if="currentPage.totalPages > 1" class="col-12 d-flex justify-content-between">
             <Pagination :currentPage="currentPage" />
           </div>
-          <div v-if="posts && currentPage.totalPages > 1" class="text-center py-3">
-            <small>[ Less than 20 posts found.. ]</small>
+
+          <div v-if="posts.length >= 1 && currentPage.totalPages == 1" class="text-center py-3">
+            <small>[ Only {{ posts.length }} post{{ posts.length > 1 ? 's' : '' }} found.. ]</small>
+          </div>
+
+        </section>
+
+        <section v-if="searching" class="row text-center py-3">
+          <div class="col-12 fs-3 text-center text-muted p-5">
+            Searching profiles.. <i class="mdi mdi-tire mdi-spin"></i>
           </div>
         </section>
-        <section v-else class="row">
-          <div class="col-12 fs-1 text-center p-5">Loading content... <i class="mdi mdi-router mdi-spin"></i></div>
+
+        <section v-if="route.query.query && posts.length == 0 && !searching" class="row">
+          <div class="col-12 fs-3 text-center text-muted p-5">
+            No post matches... <i class="mdi mdi-note-off-outline"></i>
+          </div>
         </section>
+
       </div>
     </section>
   </div>
@@ -49,7 +87,7 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { profilesService } from "../services/ProfilesService.js";
 import UserProfile from "../components/UserProfile.vue";
 import Pagination from "../components/Pagination.vue";
@@ -64,9 +102,10 @@ export default {
   setup() {
     const route = useRoute();
 
-    async function _getProfilesByQuery() {
+    async function _getProfilesByQuery(query) {
       try {
-        await profilesService.getProfilesByQuery(route.query.query);
+        await profilesService.getProfilesByQuery(query);
+        AppState.searching = false;
       }
       catch (error) {
         logger.error(error);
@@ -74,9 +113,10 @@ export default {
       }
     };
 
-    async function _getPostsByQuery() {
+    async function _getPostsByQuery(query) {
       try {
-        await postsService.getPostsByQuery(route.query.query);
+        await postsService.getPostsByQuery(query);
+        AppState.searching = false;
       }
       catch (error) {
         logger.error(error);
@@ -87,21 +127,21 @@ export default {
     onMounted(() => {
       profilesService.clearData();
       postsService.clearData();
-      if (!route.query.query) { return }
-      _getProfilesByQuery();
-      _getPostsByQuery();
+
+      let query = route.query.query;
+      if (!query) { return }
+      _getProfilesByQuery(query);
+      _getPostsByQuery(query);
     });
 
     return {
-      // query: route.query.query,
+      route,
+
+      searching: computed(() => AppState.searching),
       profiles: computed(() => AppState.profiles),
       posts: computed(() => AppState.posts),
       currentPage: computed(() => AppState.currentPage),
 
-      // async searchProfilesAndPosts() {
-      //   _getPostsByQuery();
-      //   _getProfilesByQuery();
-      // }
     };
   },
   components: { UserProfile, PostCard, Pagination, Search }

@@ -18,21 +18,26 @@ class PostsService {
   }
 
   async getPostsByPage(pageUrl) {
+    AppState.searching = true;
     const res = await api.get(pageUrl);
     AppState.posts = res.data.posts.map(post => new Post(post));
+    AppState.searching = false;
     AppState.currentPage = new CurrentPage(res.data);
-    logger.log('[POSTS SERVICE] getPostsByPage(): ', AppState.currentPage, 'posts', AppState.posts);
+    // logger.log('[POSTS SERVICE] getPostsByPage(): ', AppState.currentPage, 'posts', AppState.posts);
   }
 
   async getPostsByQuery(query) {
+    AppState.searching = true;
     const res = await api.get(`api/posts?query=${query}`);
     AppState.posts = res.data.posts.map(post => new Post(post));
+    AppState.searching = false;
     AppState.currentPage = new CurrentPage(res.data);
   }
 
   clearData() {
     AppState.posts = [];
     AppState.activePost = null;
+    AppState.currentPage = {};
   }
 
   // 🔽 AUTHENTICATION REQUIRED BELOW 🔽

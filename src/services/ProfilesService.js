@@ -11,12 +11,15 @@ class ProfilesService {
   }
 
   async getPostsByProfileId(profileId) {
+    AppState.searching = true;
     const res = await api.get(`api/profiles/${profileId}/posts`);
     AppState.posts = res.data.posts.map(post => new Post(post));
+    AppState.searching = false;
     AppState.currentPage = new CurrentPage(res.data);
   }
 
   async getProfilesByQuery(query) {
+    AppState.searching = true;
     const res = await api.get(`api/profiles?query=${query}`);
     AppState.profiles = res.data.map(profile => new Profile(profile));
   }

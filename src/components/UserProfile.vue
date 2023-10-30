@@ -32,10 +32,7 @@
 
 
 <script>
-import { computed, onMounted } from "vue";
-import { AppState } from "../AppState.js";
 import { Profile } from "../models/Profile.js";
-import { useRoute } from "vue-router";
 
 export default {
   props: { profile: { type: Profile } },

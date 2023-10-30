@@ -7,14 +7,15 @@
 
 
 <script>
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from "vue-router";
+import { ref } from 'vue';
+import { useRouter } from "vue-router";
 import { logger } from "../utils/Logger.js";
 import Pop from "../utils/Pop.js";
 import { postsService } from "../services/PostsService.js";
 import { profilesService } from "../services/ProfilesService.js";
 
 export default {
+
   setup() {
     const router = useRouter();
     const search = ref('');
@@ -46,10 +47,10 @@ export default {
         profilesService.clearData();
         postsService.clearData();
 
-        // router.query.query = search.value;
-        router.push({ to: { name: 'Search', query: search.value } })
-        await _getProfilesByQuery(search.value);
-        await _getPostsByQuery(search.value);
+        router.push({ path: 'search', query: { query: search.value } })
+
+        _getProfilesByQuery(search.value);
+        _getPostsByQuery(search.value);
       }
     }
   }
