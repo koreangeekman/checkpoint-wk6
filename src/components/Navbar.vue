@@ -12,8 +12,19 @@
             <button class="ms-3 btn btn-success d-flex" type="button">Search<i class="ps-1 mdi mdi-magnify"></i></button>
           </router-link>
         </div>
-        <div v-else>&nbsp;</div>
+        <div v-else class="me-md-5 pe-md-5">&nbsp;</div>
       </span>
+
+      <div v-if="route.name == 'Account'" class="ms-md-5 ps-md-5">
+        <p class="mb-0 fs-3 p-2 text-center text-white fw-bold">Edit profile?</p>
+      </div>
+      <div v-if="route.name == 'Search'" class="ms-md-5 ps-md-5">
+        <p class="mb-0 fs-3 p-2 text-center text-white fw-bold">Search Page</p>
+      </div>
+      <div v-if="route.name == 'Profile'" class="ms-md-5 ps-md-5">
+        <p class="mb-0 fs-3 p-2 text-center text-white fw-bold">Profile Page</p>
+      </div>
+
 
       <Login />
 
