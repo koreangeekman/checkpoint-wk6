@@ -36,7 +36,7 @@
 
       <div class="col-12 col-lg-2">
         <div v-for="ad in ads" :key="ad.title">
-          <AdVertical :ad="ad" />
+          <AdTall :ad="ad" />
         </div>
       </div>
 
@@ -54,7 +54,7 @@ import AddPost from "../components/AddPost.vue";
 import PostCard from "../components/PostCard.vue";
 import Pagination from "../components/Pagination.vue";
 import { adsService } from "../services/AdsService";
-import AdVertical from "../components/AdVertical.vue";
+import AdTall from "../components/AdTall.vue";
 
 export default {
   setup() {
@@ -80,7 +80,7 @@ export default {
       account: computed(() => AppState.account),
     };
   },
-  components: { AddPost, Pagination, PostCard, AdVertical }
+  components: { AddPost, Pagination, PostCard, AdTall }
 }
 </script>
 

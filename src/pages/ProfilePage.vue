@@ -59,7 +59,7 @@
 
       <div class="col-12 col-lg-2">
         <div v-for="ad in ads" :key="ad.title">
-          <AdVertical :ad="ad" />
+          <AdTall :ad="ad" />
         </div>
       </div>
 
@@ -73,7 +73,7 @@ import { computed, onMounted } from "vue";
 import UserProfile from "../components/UserProfile.vue";
 import Pagination from "../components/Pagination.vue";
 import PostCard from "../components/PostCard.vue";
-import AdVertical from "../components/AdVertical.vue";
+import AdTall from "../components/AdTall.vue";
 import Pop from "../utils/Pop";
 import { logger } from "../utils/Logger";
 import { AppState } from "../AppState";
@@ -132,7 +132,7 @@ export default {
       invalid: computed(() => AppState.invalid),
     };
   },
-  components: { UserProfile, Pagination, PostCard, AdVertical }
+  components: { UserProfile, Pagination, PostCard, AdTall }
 };
 </script>
 
