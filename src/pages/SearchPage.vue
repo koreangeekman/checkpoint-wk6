@@ -2,15 +2,15 @@
   <div class="container-fluid">
 
     <section class="row">
-      <div class="col-12 px-5 py-3">
+      <div class="col-12">
         <section class="row justify-content-between align-items-center ">
-          <div class="col-12 col-md-5 px-5">
+          <div class="col-12 col-md-5">
             <AdBanner :ad="0" class="rounded" />
           </div>
-          <div class="col-12 col-md-2 card px-4 py-5">
+          <div class="col-12 col-md-2 card px-3 py-3">
             <Search />
           </div>
-          <div class="col-12 col-md-5 px-5">
+          <div class="col-12 col-md-5">
             <AdBanner :ad="1" class="rounded" />
           </div>
         </section>
